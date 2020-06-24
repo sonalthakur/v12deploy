@@ -81,6 +81,4 @@ app.use("/campgrounds",campgroundsRouter);
 app.use("/campgrounds/:id/comments",commentsRouter);
 
 
-app.listen(3000,()=>{
-	console.log("YELCAMP SERVER UP!!");
-});
+app.listen(process.env.PORT, process.env.IP);
