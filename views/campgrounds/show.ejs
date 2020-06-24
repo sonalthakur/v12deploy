@@ -1,0 +1,72 @@
+<%-include ("../partials/header")%>
+<div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<p class="lead">Yelpcamp</p>
+			<div class="list-group">
+				<li class="list-group-item active">Info 1</li> 
+				<li class="list-group-item">Info 2</li> 
+				<li class="list-group-item">Info 3</li> 
+					
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%=cg.image%>">
+				<div class="caption">
+					<h4 class="pull-right">$9/day</h4>
+					<h4>
+						<a><%=cg.name%></a>
+					</h4>
+					<p>
+						<%=cg.description%>
+					</p>	
+					<p>
+						<em>Submitted by <strong><%=cg.author.username%></strong></em>
+					</p>
+					<%if(currentUser && cg.author.id.equals(currentUser._id)){%>
+					<a class="btn btn-warning" href="/campgrounds/<%=cg._id%>/edit">Edit</a>
+					<form id="delete-form" action="/campgrounds/<%=cg._id%>?_method=DELETE" method="POST">
+						<button class="btn btn-danger">
+							Delete
+						</button>
+					</form>
+					<%}%>
+					
+						  
+					
+				</div>
+				
+			</div>
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-primary" href="/campgrounds/<%=cg._id%>/comments/new">Add New Comment</a>
+				</div>
+			<hr>
+				<%cg.comments.forEach(function(c){%>
+				<div class="row">
+					<div class="col-md-12">
+						<strong><%=c.author.username%></strong>
+						<span class="pull-right">10 days</span>
+						<p>
+							<%=c.text%>
+						</p>
+						<%if(currentUser && c.author.id.equals(currentUser._id)){%>
+						<a class="btn btn-xs btn-warning" href="/campgrounds/<%=cg._id%>/comments/<%=c._id%>/edit">Edit</a>
+						<form class="delete-form" action="/campgrounds/<%=cg._id%>/comments/<%=c._id%>?_method=DELETE" method="POST">
+						<button class="btn btn-xs btn-danger">
+							Delete
+						</button>
+					</form>
+						<%}%>
+					</div>
+				</div>
+				<%})%>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+
+
